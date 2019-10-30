@@ -25,12 +25,6 @@
       <scope>compile</scope>
     </dependency>
     <dependency>
-      <groupId>com.pfryda</groupId>
-      <artifactId>implementation</artifactId>
-      <version>1.0</version>
-      <scope>compile</scope>
-    </dependency>
-    <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
       <version>4.12</version>
@@ -47,7 +41,7 @@
           <archive>
             <manifest>
               <addClasspath>true</addClasspath>
-              <mainClass>com.calculator.App</mainClass>
+              <mainClass>com.pfryda.App</mainClass>
             </manifest>
           </archive>
         </configuration>
