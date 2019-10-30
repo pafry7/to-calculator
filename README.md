@@ -6,12 +6,12 @@ It is a small maven project made at the Cracow University of Technology
 ### Installation
 
 1. Clone repo using ssh 
-```sh
+```shell script
 $ git clone git@github.com:pafry7/to-calculator.git
 ```
 2. Enter the directory
-```sh
-$ cd tocalc
+```shell script
+$ cd to-calculator
 ```
 3. Install dependencies
 ```shell script
