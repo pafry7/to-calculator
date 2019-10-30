@@ -1,9 +1,12 @@
 # Compiled class file
 *.class
 /.idea
-/tocalc.iml
+*.iml
+target
 # Log file
 *.log
+
+**/target
 
 # BlueJ files
 *.ctxt
