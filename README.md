@@ -21,3 +21,8 @@ $ mvn clean install
 ```shell script
 $ java -jar common/target/common-1.0.jar
 ```
+
+when using this repository please adhere to:
+
+- [_Standard Commits_](https://www.conventionalcommits.org/)
+- _Git Branching strategy_
