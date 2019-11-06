@@ -22,6 +22,10 @@ $ mvn clean install
 $ java -jar common/target/common-1.0.jar
 ```
 
+
+You must create `plugins` folder and put compiled `Example.class`
+in it. Then add path to it in main and change `loadedClass` to `"Example"`
+
 when using this repository please adhere to:
 
 - [_Standard Commits_](https://www.conventionalcommits.org/)
