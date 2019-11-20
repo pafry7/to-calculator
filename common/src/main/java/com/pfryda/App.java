@@ -17,6 +17,7 @@ public class App
         System.out.println("-------------\n\n");
 
         File dir = new File("/home/projects/uni/to/plugins");
+
         URL loadPath = null;
         try {
             loadPath = dir.toURI().toURL();
@@ -24,28 +25,22 @@ public class App
             e.printStackTrace();
         }
         URL[] classUrl = new URL[]{loadPath};
-
-        ClassLoader cl = new URLClassLoader(classUrl);
-
+        ClassLoader cl =  new URLClassLoader(classUrl);
         try {
-            Class loadedClass = cl.loadClass("TestClass"); // m
-            System.out.println(loadedClass.getName() + " exists!");
-
+            Class loadedClass = cl.loadClass("TestClass");
             Object b = loadedClass.newInstance();
-            Method x = loadedClass.getMethod("A");
-             x.invoke(b);
 
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
-        } catch (InstantiationException e) {
-            e.printStackTrace();
-        } catch (NoSuchMethodException e) {
-            e.printStackTrace();
-        } catch (InvocationTargetException e) {
+            Method[] methods = loadedClass.getMethods();
+            for (Method func : methods) {
+                if (func.getName().equals("sqrt")) {
+                    double x = (Double)(func.invoke(b, 2));
+                    System.out.println(x);
+                }
+            }
+            System.out.println("\n\n\n--------------");
+
+        } catch (ClassNotFoundException |IllegalAccessException | InstantiationException | InvocationTargetException e) {
             e.printStackTrace();
         }
-
     }
 }
