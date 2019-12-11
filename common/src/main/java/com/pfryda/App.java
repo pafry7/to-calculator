@@ -16,7 +16,7 @@ public class App
 
         System.out.println("-------------\n\n");
 
-        File dir = new File("/home/projects/uni/to/plugins");
+        File dir = new File("/home/projects/uni/to/tocalc/plugins");
 
         URL loadPath = null;
         try {

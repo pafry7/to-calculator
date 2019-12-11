@@ -4,13 +4,13 @@
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
-  <groupId>com.pfryda</groupId>
-  <artifactId>common</artifactId>
-  <version>1.0</version>
+  <parent>
+    <groupId>com.pfryda</groupId>
+    <artifactId>tocalc</artifactId>
+    <version>1.0</version>
+  </parent>
 
-  <name>common</name>
-  <!-- FIXME change it to the project's website -->
-  <url>http://www.example.com</url>
+  <artifactId>common</artifactId>
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -23,12 +23,6 @@
       <artifactId>interface</artifactId>
       <version>1.0</version>
       <scope>compile</scope>
-    </dependency>
-    <dependency>
-      <groupId>junit</groupId>
-      <artifactId>junit</artifactId>
-      <version>4.12</version>
-      <scope>test</scope>
     </dependency>
     <dependency>
       <groupId>com.pfryda</groupId>
