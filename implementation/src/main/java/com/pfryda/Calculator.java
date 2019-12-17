@@ -1,34 +1,14 @@
 package com.pfryda;
+import java.util.ArrayList;
 
 public class Calculator  implements ICalc {
 
     @Override
-    public double add(double ...numbers) {
-        double sum = 0;
-        for(double number : numbers){
-            sum += number;
-        }
-        return sum;
-    }
+    public double calculate(String expression){
+        ArrayList<String> tokenizedExpression = ExpressionTokenizer.tokenize(expression);
+        ArrayList<String> postfixExpression = ShuntingYard.infixToPostfix(tokenizedExpression);
 
-    @Override
-    public double substract(double a, double b) {
-        return a - b;
-    }
+        return PostfixEvaluator.evaluate(postfixExpression);
 
-    @Override
-    public double multiply(double a, double b) {
-        return a * b;
-    }
-
-    @Override
-    public double divide(double a, double b) {
-        if (b != 0){
-            return a / b;
-        } else {
-            System.out.println("Cannot divide 0");
-
-        }
-        return 0;
     }
 }

@@ -36,7 +36,7 @@ public class App
             }
 
             try {
-                System.out.println("\nResult: " + calculator.add(2,2) + "\n");
+                System.out.println("\nResult: " + calculator.calculate(expression) + "\n");
             } catch (NumberFormatException  | ArrayIndexOutOfBoundsException e) {
                 System.out.println("Invalid expression"); }
 //            } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException e) {
