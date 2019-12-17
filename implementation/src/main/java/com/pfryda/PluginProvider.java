@@ -4,6 +4,7 @@ import java.lang.reflect.Method;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLClassLoader;
+import java.util.logging.*;
 
 public class PluginProvider {
 
@@ -11,12 +12,14 @@ public class PluginProvider {
     private String functionName;
     private String className;
     private Class loadedClass;
+    private Logger logger;
 
     public PluginProvider(String pathToJar, String className, String functionName){
         this.pathToJar = new File(pathToJar);
         this.functionName = functionName;
         this.className = className;
         this.loadedClass = this.getClassObject();
+        this.logger = Logger.getLogger("Logs");
     }
 
     private Class getClassObject(){
@@ -29,7 +32,7 @@ public class PluginProvider {
             loadedClass = cl.loadClass(this.className);
 
         } catch (ClassNotFoundException | MalformedURLException e) {
-            e.printStackTrace();
+            logger.log(Level.SEVERE, e.getMessage(), e);
         }
         return loadedClass;
     }
@@ -39,7 +42,7 @@ public class PluginProvider {
         try {
             newInstance = this.loadedClass.newInstance();
         } catch (InstantiationException | IllegalAccessException e) {
-            e.printStackTrace();
+            logger.log(Level.SEVERE, e.getMessage(), e);
         }
         return newInstance;
     }
