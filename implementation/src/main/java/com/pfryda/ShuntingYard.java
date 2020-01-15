@@ -5,8 +5,8 @@ import java.util.Collections;
 
 public class ShuntingYard extends Operators{
     public static ArrayList<String> infixToPostfix(ArrayList<String> infix) {
-        ArrayList<String> postfix = new ArrayList<String>();
-        Stack<String> operatorStack = new Stack<String>();
+        ArrayList<String> postfix = new ArrayList<>();
+        Stack<String> operatorStack = new Stack<>();
 
         for (String token: infix) {
             if (isNumeric(token)) {
@@ -34,7 +34,7 @@ public class ShuntingYard extends Operators{
             }
         }
 
-        Stack<String> toRemove = new Stack<String>();
+        Stack<String> toRemove = new Stack<>();
 
         if (!operatorStack.isEmpty()) {
             toRemove.addAll(operatorStack);
@@ -44,7 +44,6 @@ public class ShuntingYard extends Operators{
             Collections.reverse(toRemove);
             postfix.addAll(toRemove);
         }
-
         return postfix;
     }
 }

@@ -1,52 +1,51 @@
 package com.pfryda;
 import java.util.ArrayList;
+import java.util.EmptyStackException;
 import java.util.Stack;
 
-import java.net.URL;
-import java.net.URLClassLoader;
-import java.net.MalformedURLException;
 import java.lang.reflect.*;
+import org.apache.logging.log4j.*;
 
 public class PostfixEvaluator extends Operators {
-    public static Double evaluate(ArrayList<String> postfix) {
-        URLClassLoader functionPluginLoader = null;
 
-        try {
-            functionPluginLoader = URLClassLoader.newInstance(new URL[]{new URL("file:plugins/SingleArgFunctions.jar")});
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        }
+    private static Logger fileLogger = LogManager.getLogger("PostfixEvaluator");
 
-        Stack<Double> operands = new Stack<Double>();
+    public static Double evaluate(ArrayList<String> postfix)  throws EmptyStackException{
+        Stack<Double> operands = new Stack<>();
 
         for (String token: postfix) {
             if (isNumeric(token)) {
                 operands.push(Double.parseDouble(token));
             } else if (isTwoArgumentOperator(token)) {
-                Double rightOperand = operands.pop();
-                Double leftOperand = operands.pop();
+                try {
+                    Double rightOperand = operands.pop();
+                    Double leftOperand = operands.pop();
+                    Double result = calculateTwoArg(token, leftOperand, rightOperand);
+                    operands.push(result);
+                } catch (EmptyStackException e){
+                    System.out.println("Invalid expression, please enter proper input\n");
+                    fileLogger.log(Level.getLevel("ERROR"),  e);
+                }
 
-                Double result = calculateTwoArg(token, leftOperand, rightOperand);
-
-                operands.push(result);
             } else if (isFunction(token)) {
+                String classToLoad = token.substring(0, 1).toUpperCase() + token.substring(1);
+                String methodToLoad = token.substring(0, 1) + token.substring(1);
                 try {
                     // capitalize first letter to reflect class name spelling
-                    String toLoad = token.substring(0, 1).toUpperCase() + token.substring(1);
-                    Class<?> functionClass = functionPluginLoader.loadClass(toLoad);
-                    Method method = functionClass.getDeclaredMethod("calculate", Double.class);
-                    Object instance = functionClass.newInstance();
-                    Object functionResult = method.invoke(instance, operands.pop());
+                    PluginProvider plugin = new PluginProvider(
+                            "/home/projects/uni/to/tocalc/plugins/",
+                            classToLoad,
+                            methodToLoad
+                    );
+                    Object classInstance = plugin.getInstance();
+                    Method method = plugin.getMethod();
+
+                    Object functionResult = method.invoke(classInstance, operands.pop());
                     operands.push((Double) functionResult);
-                } catch (ClassNotFoundException e) {
-                    System.out.println("Class " + token + " not found in plugins directory");
-                } catch (NoSuchMethodException e) {
-                    System.out.println("Method calculate not found in " + token + " class");
-                } catch (InstantiationException | InvocationTargetException | IllegalAccessException e) {
-                    e.printStackTrace();
+                } catch (IllegalAccessException | InvocationTargetException | NullPointerException | EmptyStackException e) {
+                    fileLogger.log(Level.getLevel("ERROR"), e);
                 }
-            }
-        }
+            }        }
 
         return operands.pop();
     }

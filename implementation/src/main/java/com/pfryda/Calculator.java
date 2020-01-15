@@ -1,5 +1,6 @@
 package com.pfryda;
 
+import java.util.EmptyStackException;
 import java.util.Scanner;
 import java.util.ArrayList;
 
@@ -24,8 +25,11 @@ public class Calculator  implements ICalc {
     public Double calculate(String expression){
         ArrayList<String> tokenizedExpression = ExpressionTokenizer.tokenize(expression);
         ArrayList<String> postfixExpression = ShuntingYard.infixToPostfix(tokenizedExpression);
-
-        return PostfixEvaluator.evaluate(postfixExpression);
+        try {
+            return PostfixEvaluator.evaluate(postfixExpression);
+        }  catch (EmptyStackException ignored) {
+        }
+        return null;
     }
 
 
@@ -47,8 +51,12 @@ public class Calculator  implements ICalc {
             }
 
             Double result = calculate(expression);
+            if (result == null){
+                System.out.println("");
+            } else {
 
-            System.out.println("Result: " + result);
+                System.out.println("Result: " + result);
+            }
         }
 
         scanner.close();

@@ -4,8 +4,14 @@ import java.util.List;
 import java.util.Map;
 import java.util.HashMap;
 import java.util.Arrays;
+import org.apache.logging.log4j.Level;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class Operators {
+
+    private static Logger myLogger = LogManager.getLogger("Operators");
+
     private static List<String> supportedOperators = Arrays.asList("+", "-", "*", "/");
     private static List<String> twoArgumentOperators = Arrays.asList("+", "-", "*", "/");
     private static Map<String, Integer> operatorPrecedence = new HashMap<String, Integer>() {
@@ -67,8 +73,9 @@ public class Operators {
                     result = leftOperand / rightOperand;
                     break;
                 } catch (IllegalArgumentException e) {
-                    System.out.println("Division by 0");
-                    break;
+                    myLogger.log(Level.getLevel("INFO"), "Division by 0");
+                    System.out.println("Don't divide by 0!");
+                    return null;
                 }
             default:
                 System.out.println("Unsupported operator " + op);

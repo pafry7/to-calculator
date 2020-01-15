@@ -23,26 +23,26 @@
       <groupId>com.pfryda</groupId>
       <artifactId>interface</artifactId>
       <version>1.0</version>
-      <scope>compile</scope>
+<!--      <scope>compile</scope>-->
     </dependency>
   </dependencies>
 
-  <build>
-    <pluginManagement><!-- lock down plugins versions to avoid using Maven defaults (may be moved to parent pom) -->
-      <plugins>
-        <plugin>
-          <groupId>org.apache.maven.plugins</groupId>
-          <artifactId>maven-jar-plugin</artifactId>
-          <configuration>
-            <archive>
-              <manifest>
-                <addClasspath>true</addClasspath>
-                <mainClass>com.pfryda.App</mainClass>
-              </manifest>
-            </archive>
-          </configuration>
-        </plugin>
-      </plugins>
-    </pluginManagement>
-  </build>
+<!--  <build>-->
+<!--    <pluginManagement>&lt;!&ndash; lock down plugins versions to avoid using Maven defaults (may be moved to parent pom) &ndash;&gt;-->
+<!--      <plugins>-->
+<!--        <plugin>-->
+<!--          <groupId>org.apache.maven.plugins</groupId>-->
+<!--          <artifactId>maven-jar-plugin</artifactId>-->
+<!--          <configuration>-->
+<!--            <archive>-->
+<!--              <manifest>-->
+<!--                <addClasspath>true</addClasspath>-->
+<!--                <mainClass>com.pfryda.App</mainClass>-->
+<!--              </manifest>-->
+<!--            </archive>-->
+<!--          </configuration>-->
+<!--        </plugin>-->
+<!--      </plugins>-->
+<!--    </pluginManagement>-->
+<!--  </build>-->
 </project>
